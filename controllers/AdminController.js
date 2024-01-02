@@ -117,7 +117,7 @@ export const addNews= async(req,res)=>{
 }
 
 export const addArticles= async(req,res)=>{
-  
+  console.log(req.body,'reqqhy')
     const { title, category, date, body ,imagetitle,secondparagraph} = req.body;
     const dateString = date
     
@@ -158,6 +158,7 @@ export const getNews=async(req,res)=>{
 export const getArticles=async(req,res)=>{
     try {
         const news=await ArticleModel.find().sort({ createdAt: -1 }).limit(4).exec()
+        console.log(news,"why")
         
        return res.status(200).json(news)
     } catch (error) {
@@ -187,6 +188,7 @@ export const getCategory=async(req,res)=>{
     try {
         
         const catDetails = await categoryModel.find().exec()
+        console.log(catDetails,"catwy")
     
       return res.status(200).json(catDetails)
     } catch (error) {
@@ -198,7 +200,9 @@ export const getCategory=async(req,res)=>{
 export const getDetailnews=async(req,res)=>{
     try {
         const { id } = req.params;
+        console.log("check")
         console.log(id,"id")
+        // console.log(id,"id")
         const news = await NewsModel.findById(id);
         console.log(news,"check req")
         if (!news) {
