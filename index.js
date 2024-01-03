@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import multer from "multer"
 import dotenv from "dotenv";
 
+import cheerio from "cheerio"
+
 
 
 

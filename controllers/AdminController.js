@@ -158,7 +158,7 @@ export const getNews=async(req,res)=>{
 export const getArticles=async(req,res)=>{
     try {
         const news=await ArticleModel.find().sort({ createdAt: -1 }).limit(4).exec()
-        console.log(news,"why")
+       
         
        return res.status(200).json(news)
     } catch (error) {
@@ -201,10 +201,15 @@ export const getDetailnews=async(req,res)=>{
     try {
         const { id } = req.params;
         console.log("check")
-        console.log(id,"id")
+        
         // console.log(id,"id")
         const news = await NewsModel.findById(id);
-        console.log(news,"check req")
+          // Generate Open Graph meta tags
+    const ogpTags = generateOGPTags(news);
+    const htmlWithOGPTags = injectOGPTagsIntoHTML(ogpTags, news.htmlContent);
+    res.send(htmlWithOGPTags);
+        console.log(news,"req")
+       
         if (!news) {
           return res.status(404).json({
             message: "no blogs for this user",
@@ -220,6 +225,20 @@ export const getDetailnews=async(req,res)=>{
           error,
         });
       }
+      
+function generateOGPTags(news) {
+  return `
+      <meta property="og:title" content="${news.title}">
+      <meta property="og:description" content="${news.shortDescription}">
+      <meta property="og:image" content="${news.previewImageURL}">
+  `;
+}
+
+function injectOGPTagsIntoHTML(ogpTags, htmlContent) {
+  const $ = cheerio.load(htmlContent);
+  $('head').append(ogpTags);
+  return $.html();
+}
 }
 
 
