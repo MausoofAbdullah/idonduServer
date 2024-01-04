@@ -10,7 +10,9 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+
 dotenv.config()
+const serverPublic="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/"
 export const adminRegister = async (req, res) => {
   console.log(req.body,'re')  
 
@@ -159,7 +161,7 @@ export const getArticles=async(req,res)=>{
     try {
         const news=await ArticleModel.find().sort({ createdAt: -1 }).limit(4).exec()
        
-        
+       
        return res.status(200).json(news)
     } catch (error) {
         console.log(error,'ere')
@@ -204,41 +206,31 @@ export const getDetailnews=async(req,res)=>{
         
         // console.log(id,"id")
         const news = await NewsModel.findById(id);
+        
           // Generate Open Graph meta tags
-    const ogpTags = generateOGPTags(news);
-    const htmlWithOGPTags = injectOGPTagsIntoHTML(ogpTags, news.htmlContent);
-    res.send(htmlWithOGPTags);
-        console.log(news,"req")
+    // const ogpTags = generateOGPTags(news);
+     
        
         if (!news) {
           return res.status(404).json({
             message: "no blogs for this user",
           });
         }
-        return res.status(200).json(
-          
-          news
-        );
+        return res.status(200).json(news);
       } catch (error) {
+        console.log(error,"errrrr")
         return res.status(400).json({
           message: "error while getting single blog",
           error,
         });
       }
-      
-function generateOGPTags(news) {
-  return `
-      <meta property="og:title" content="${news.title}">
-      <meta property="og:description" content="${news.shortDescription}">
-      <meta property="og:image" content="${news.previewImageURL}">
-  `;
-}
-
-function injectOGPTagsIntoHTML(ogpTags, htmlContent) {
-  const $ = cheerio.load(htmlContent);
-  $('head').append(ogpTags);
-  return $.html();
-}
+      function generateOGPTags(news) {
+        return `
+            <meta property="og:title" content="${news.title}">
+            <meta property="og:description" content="${news.body.slice(1, 150)}">
+            <meta property="og:image" content="${serverPublic+news.images?.[0]}">
+        `;
+      }
 }
 
 

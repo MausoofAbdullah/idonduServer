@@ -9,16 +9,16 @@ dotenv.config()
 
 const authMiddleware=async (req,res,next)=>{
     try {
-        console.log(req.headers,"reqqqqheader")
+        // console.log(req.headers,"reqqqqheader")
         const token=req.headers.authorization
-        console.log(token)
+        // console.log(token)
         if(!token){
             res.json("token is not available")
         }
         else{
             jwt.verify(token, process.env.JWT_KEY,(err,decoded)=>{
                 if(err) return res.json("token is wrong")
-                console.log(decoded,"dec")
+                // console.log(decoded,"dec")
                 req.body._id=decoded?.id
             next()
             })

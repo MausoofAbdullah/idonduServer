@@ -8,7 +8,7 @@ const newsSchema=mongoose.Schema(
         category:String,
         images:[String],
         imagetitle:String,
-       
+      
        
             date:String,
             body:String,
