@@ -202,10 +202,21 @@ export const getCategory=async(req,res)=>{
 export const getDetailnews=async(req,res)=>{
     try {
         const { id } = req.params;
-        console.log("check")
+       
         
         // console.log(id,"id")
         const news = await NewsModel.findById(id);
+        console.log(news,"ne")
+      
+      
+        // Render the index.ejs file with dynamic data
+        // res.render('index', {
+        //   title: news.title,
+        //   description: news.description,
+        //   imageUrl: serverPublic+news.images?.[0],
+        //   news:news
+        // },);
+      
         
           // Generate Open Graph meta tags
     // const ogpTags = generateOGPTags(news);
