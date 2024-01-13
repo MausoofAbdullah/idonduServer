@@ -1,5 +1,7 @@
 import express from "express"
-import {addCategory, addNews, getCategory,getNews,getDetailnews,addArticles,getArticles,adminRegister,adminLogin} from "../controllers/AdminController.js"
+import {addCategory, addNews, getCategory,getNews,getDetailnews,addArticles,
+  getArticles,adminRegister,adminLogin,
+  getAdmin} from "../controllers/AdminController.js"
 
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { v2 as cloudinary } from 'cloudinary';
@@ -44,10 +46,12 @@ const storage = new CloudinaryStorage({
       fileSize: 1024 * 1024 * 5, // 5MB limit (adjust as needed)
     },
   });
-
-router.post('/',authMiddleware,upload.array('images', 5),addNews)
+  console.log(upload,"up")
+// router.get('/',)
+router.get('/admin',getAdmin)
+router.post('/admin',upload.array('images', 5),addNews)
 router.post('/addarticles',upload.array('images', 5),addArticles)
-router.get('/news',getNews)
+router.get('/',getNews)
 router.get('/article',getArticles)
 router.post('/categories',addCategory)
 router.get('/categories',getCategory)

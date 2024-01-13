@@ -1,0 +1,90 @@
+<div class="container">
+   <form action="/admin" method="post" enctype="multipart/form-data" class="form-horizontal">
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Title</label>
+  <input type="text" class="form-control" name="title" id="exampleFormControlInput1" placeholder="title of the news">
+</div>
+ <div class="mb-3 col-4">
+     <select name="category" id="Category" class="form-control" >
+                            {{#each category}}
+                            <option value="{{this.category}}">{{this.category}}</option>
+                            {{/each}}
+                        </select>
+  </div>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+  <textarea class="form-control" name="body" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Title</label>
+  <input type="text" class="form-control" name="subtitle" id="exampleFormControlInput1" placeholder="subtitle of the news">
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">secondparagraph</label>
+  <textarea class="form-control" name="secondparagraph" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">thirdparagraph</label>
+  <textarea class="form-control" name="thirdparagraph" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+
+<div id="imagePreview" class="mb-3" style="height: 50px;width:80px;display: flex; flex-wrap: nowrap;"></div>
+<div class="mb-3">
+  
+  <label for="formFileMultiple" class="form-label">select images</label>
+  <input class="form-control col-4" name="images" type="file" id="formFileMultiple" multiple>
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Image title 1</label>
+  <input type="text" class="form-control" name="imagetitle1" id="exampleFormControlInput1" placeholder="title of the news">
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Image title 2</label>
+  <input type="text" class="form-control" name="imagetitle2" id="exampleFormControlInput1" placeholder="title of the news">
+</div>
+<div class="mb-3">
+  <label for="datepicker" class="form-label">Select Date</label>
+  <input class="form-control col-4" name="date" type="date" id="datepicker">
+</div>
+ <div class="row form-group">
+                    <button type="submit" class="btn btn-primary ">
+                        <i class="fa fa-dot-circle-o"></i> Submit
+                    </button>
+                    <button type="reset" class="btn btn-danger">
+                        <i class="fa fa-ban"></i> Reset
+                    </button>
+                </div>
+</form>
+  {{!-- <select name="category" id="Category" class="form-control" required>
+                           
+                            <option value="">cricket</option>
+                            <option value="">cricket</option>
+                            
+                        </select> --}}
+</div>
+
+
+<script>
+  document.getElementById('formFileMultiple').addEventListener('change', handleFileSelect);
+
+  function handleFileSelect(event) {
+    const previewContainer = document.getElementById('imagePreview');
+    previewContainer.innerHTML = ''; // Clear previous preview
+
+    const files = event.target.files;
+
+    for (const file of files) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const imgElement = document.createElement('img');
+        imgElement.src = e.target.result;
+        imgElement.alt = 'Image Preview';
+        imgElement.className = 'img-thumbnail mr-2';
+        previewContainer.appendChild(imgElement);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+</script>

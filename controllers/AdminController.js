@@ -85,12 +85,19 @@ export const adminRegister = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   };
+
+  export const getAdmin=async(req,res)=>{
+    const category = await categoryModel.find().exec()
+
+    res.render('admin/addnews',{category})
+  }
 //create new post
 
 export const addNews= async(req,res)=>{
  
-    const { _id,title, category, date, body ,imagetitle,secondparagraph} = req.body;
-    console.log(_id,"dfd")
+  console.log(req.body,"req")
+    const { _id,title,subtitle, category, date, body ,imagetitle1,imagetitle2,secondparagraph,thirdparagraph} = req.body;
+    
     const dateString = date
     
   const dateObject = new Date(dateString);
@@ -102,17 +109,21 @@ export const addNews= async(req,res)=>{
     // Create a new NewsModel instance with the extracted data
     const newNews = new NewsModel({
       title,
+      subtitle,
       category,
       date:formattedDate,
       body,
       images: imageFiles.map((file) => file.filename),
-      imagetitle,
-      secondparagraph
+      imagetitle1,
+      imagetitle2,
+      secondparagraph,
+      thirdparagraph
     });
 
     try {
         await newNews.save()
-        res.status(200).json(newNews)
+        res.redirect('/admin')
+        // res.status(200).json(newNews)
     } catch (error) {
         res.status(500).json(error)
     }
@@ -149,10 +160,50 @@ export const addArticles= async(req,res)=>{
 }
 
 export const getNews=async(req,res)=>{
+  console.log("dfd")
     try {
-        const news=await NewsModel.find().sort({ createdAt: -1 }).exec()
+      const perPage = 6;
+      const page = req.query.page || 1;
+        const news=await NewsModel.find().sort({ createdAt: -1 }).skip((page - 1) * perPage) .limit(perPage).exec()
+        const category = await categoryModel.find().exec()
+        const totalNewsCount = await NewsModel.countDocuments();
+        const totalPages = Math.ceil(totalNewsCount / perPage);
+
+        news.forEach(newsItem => {
+          newsItem.shortp = truncateToWords(newsItem.body);
+        });
+
+        function truncateToWords(str) {
+          // const words = str.split(/\s+/);
+          const truncatedWords = str.slice(0, 100);
+          
+          return truncatedWords;
+        }
+        console.log(news,'short')
+      //   const words=news.map((we)=>{
+      //     return we.body
+      //   })
+      //  console.log(words,"ew")
+    
+// const truncatedArray = words.map(string => truncateToThreeWords(string));
+
+function truncateToThreeWords(str) {
+  // Split the string into words
+  // const words = str.split(/\s+/);
+
+  // Truncate to three words
+  const truncatedString = str.slice(0, 150)
+
+  return truncatedString;
+}
+       
+      
         
-       return res.status(200).json(news)
+    
+
+        res.render('user/newsHome',{user:true,news,category,totalPages, page })
+        
+      //  return res.status(200).json(news)
     } catch (error) {
         console.log(error,'ere')
     }
@@ -169,7 +220,7 @@ export const getArticles=async(req,res)=>{
 }
 
 export const addCategory=async(req,res)=>{
-    
+    console.log(req.body,"xd")
     const cat= new categoryModel(req.body)
     const {category}=req.body
    
@@ -179,7 +230,8 @@ export const addCategory=async(req,res)=>{
             res.status(500).json("already exists")
         }
         await cat.save()
-        res.status(200).json(cat)
+        res.redirect('/categories')
+        // res.status(200).json(cat)
     } catch (error) {
         res.status(500).json(error)
         
@@ -191,8 +243,8 @@ export const getCategory=async(req,res)=>{
         
         const catDetails = await categoryModel.find().exec()
         console.log(catDetails,"catwy")
-    
-      return res.status(200).json(catDetails)
+    res.render('admin/categorypage',{catDetails})
+      // return res.status(200).json(catDetails)
     } catch (error) {
         
     }
@@ -206,28 +258,23 @@ export const getDetailnews=async(req,res)=>{
         
         // console.log(id,"id")
         const news = await NewsModel.findById(id);
+        const fullNews=await NewsModel.find().sort({ createdAt: -1 }).limit(6).exec()
+
         console.log(news,"ne")
       
-      
-        // Render the index.ejs file with dynamic data
-        // res.render('index', {
-        //   title: news.title,
-        //   description: news.description,
-        //   imageUrl: serverPublic+news.images?.[0],
-        //   news:news
-        // },);
-      
-        
-          // Generate Open Graph meta tags
-    // const ogpTags = generateOGPTags(news);
+      const img=news.images
+      console.log(img,"imae")
      
        
         if (!news) {
+          
           return res.status(404).json({
             message: "no blogs for this user",
           });
         }
-        return res.status(200).json(news);
+        res.render('user/singlePage',{user:true,news,fullNews,img})
+
+        // return res.status(200).json(news);
       } catch (error) {
         console.log(error,"errrrr")
         return res.status(400).json({
@@ -235,16 +282,16 @@ export const getDetailnews=async(req,res)=>{
           error,
         });
       }
-      function generateOGPTags(news) {
-        return `
-            <meta property="og:title" content="${news.title}">
-            <meta property="og:description" content="${news.body.slice(1, 150)}">
-            <meta property="og:image" content="${serverPublic+news.images?.[0]}">
-        `;
-      }
+      // function generateOGPTags(news) {
+      //   return `
+      //       <meta property="og:title" content="${news.title}">
+      //       <meta property="og:description" content="${news.body.slice(1, 150)}">
+      //       <meta property="og:image" content="${serverPublic+news.images?.[0]}">
+      //   `;
+      // }
 }
 
 
-
+//creating a function to return the html based on the route
 
 

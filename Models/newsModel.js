@@ -5,25 +5,28 @@ const newsSchema=mongoose.Schema(
     {
         
         title:String,
+        subtitle:String,
         category:String,
         images:[String],
-        imagetitle:String,
+        imagetitle1:String,
+        imagetitle2:String,
       
        
             date:String,
             body:String,
-            secondparagraph:String
+            secondparagraph:String,
+            thirdparagraph:String,
          
 
-        //reports working
-        // reports:{
-        //     type: Array,
-        //     default: [],
-        //   },
-        //   reportcount:{
-        //     type:Number,
-        //     default:0
-        //   }
+        // reports working
+        reports:{
+            type: Array,
+            default: [],
+          },
+          reportcount:{
+            type:Number,
+            default:0
+          }
 
    
     },
