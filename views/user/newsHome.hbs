@@ -1,4 +1,15 @@
+<head>
+  <!-- Other head elements -->
 
+  {{#if news}}
+    <meta property="og:title" content="{{news.title}}">
+    <meta property="og:image" content="{{news.images[0]}}">
+    <meta property="og:description" content="{{news.shortp}}">
+    <meta property="og:url" content="{{your_dynamic_url}}">
+  {{else}}
+    <!-- Provide default values or handle the case where there's no news -->
+  {{/if}}
+</head>
 
 
     <!-- Main News Slider Start -->
