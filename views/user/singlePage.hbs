@@ -4,9 +4,9 @@
 
   {{#if news}}
     <meta property="og:title" content="{{news.title}}">
-    <meta property="og:image" content="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.images?.[0]}}">
-    <meta property="og:description" content="{{news.body}}">
-    <meta property="og:url" content="{{your_dynamic_url}}">
+    {{!-- <meta property="og:image" content="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.images?.[0]}}"> --}}
+    <meta property="og:description" content="{{news.shortp}}">
+    {{!-- <meta property="og:url" content="{{your_dynamic_url}}"> --}}
   {{else}}
     <!-- Provide default values or handle the case where there's no news -->
   {{/if}}
