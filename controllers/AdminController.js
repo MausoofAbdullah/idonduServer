@@ -259,7 +259,16 @@ export const getDetailnews=async(req,res)=>{
         // console.log(id,"id")
         const news = await NewsModel.findById(id);
         const fullNews=await NewsModel.find().sort({ createdAt: -1 }).limit(6).exec()
+      
+          news.shortp = truncateToWords(news.body);
+        
 
+        function truncateToWords(str) {
+          // const words = str.split(/\s+/);
+          const truncatedWords = str.slice(0, 100);
+          
+          return truncatedWords;
+        }
         console.log(news,"ne")
       
       const img=news.images
