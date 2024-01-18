@@ -4,7 +4,7 @@
 
   {{#if news}}
     <meta property="og:title" content="{{news.title}}">
-    <meta property="og:image" content="https://picsum.photos/200/300">
+    <meta property="og:image" content="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.images?.[0]}}">
     <meta property="og:description" content="{{news.shortp}}">
     {{!-- <meta property="og:url" content="{{your_dynamic_url}}"> --}}
   {{else}}
@@ -247,14 +247,9 @@
 
   function shareOnWhatsApp(title, image, newsId) {
       const baseUrl = window.location.origin; 
-         const staticText = "Check out this news: ";
-
-    // Combine the static text and dynamic title
-    const fullTitle = `${staticText} ${title}`;
-     const encodedTitle = encodeURIComponent(fullTitle);
+    const encodedTitle = encodeURIComponent(title);
     const encodedUrl = encodeURIComponent(`${baseUrl}/detailnews/${newsId}`);
-  /*  const whatsappLink = `https://wa.me/?text=${encodedUrl}`; */
-      const whatsappLink = `https://wa.me/?text=${encodedTitle} - ${encodedUrl}`;
+    const whatsappLink = `https://wa.me/?text=${encodedUrl} - ${encodedTitle}`;
 
     // Open WhatsApp link in a new window or tab
     window.open(whatsappLink, '_blank');
