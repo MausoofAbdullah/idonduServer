@@ -365,16 +365,11 @@
                      <script>
   
 
-  function shareOnWhatsApp(title, image, newsId) {
+ function shareOnWhatsApp(title, image, newsId) {
       const baseUrl = window.location.origin; 
-         const staticText = "Check out this news: ";
-
-    // Combine the static text and dynamic title
-    const fullTitle = `${staticText} ${title}`;
-     const encodedTitle = encodeURIComponent(fullTitle);
+    const encodedTitle = encodeURIComponent(title);
     const encodedUrl = encodeURIComponent(`${baseUrl}/detailnews/${newsId}`);
-  /*  const whatsappLink = `https://wa.me/?text=${encodedUrl}`; */
-      const whatsappLink = `https://wa.me/?text=${encodedTitle} - ${encodedUrl}`;
+    const whatsappLink = `https://wa.me/?text=${encodedUrl}`;
 
     // Open WhatsApp link in a new window or tab
     window.open(whatsappLink, '_blank');

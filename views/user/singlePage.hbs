@@ -249,7 +249,7 @@
       const baseUrl = window.location.origin; 
     const encodedTitle = encodeURIComponent(title);
     const encodedUrl = encodeURIComponent(`${baseUrl}/detailnews/${newsId}`);
-    const whatsappLink = `https://wa.me/?text=${encodedUrl} - ${encodedTitle}`;
+    const whatsappLink = `https://wa.me/?text=${encodedUrl}`;
 
     // Open WhatsApp link in a new window or tab
     window.open(whatsappLink, '_blank');
