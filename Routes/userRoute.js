@@ -46,7 +46,7 @@ const storage = new CloudinaryStorage({
       fileSize: 1024 * 1024 * 5, // 5MB limit (adjust as needed)
     },
   });
-  console.log(upload,"up")
+ 
 // router.get('/',)
 router.get('/admin',getAdmin)
 router.post('/admin',upload.array('images', 5),addNews)
