@@ -1,4 +1,14 @@
+<head>
+  <!-- Other head elements -->
 
+  {{#each news}}
+    <meta property="og:title" content="{{this.title}}">
+    <meta property="og:image" content="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images?.[0]}}">
+    <meta property="og:description" content="{{this.shortp}}">
+    {{!-- <meta property="og:url" content="{{your_dynamic_url}}"> --}}
+  {{/each}}
+ 
+</head>
 
     <!-- Main News Slider Start -->
     <div class="container-fluid">

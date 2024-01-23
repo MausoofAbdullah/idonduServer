@@ -5,6 +5,7 @@ import UserModel from "../Models/userModel.js";
 import dotenv from "dotenv"
 
 
+
 import mongoose from "mongoose";
 
 import bcrypt from "bcrypt";
@@ -129,35 +130,35 @@ export const addNews= async(req,res)=>{
     }
 }
 
-export const addArticles= async(req,res)=>{
-  console.log(req.body,'reqqhy')
-    const { title, category, date, body ,imagetitle,secondparagraph} = req.body;
-    const dateString = date
+// export const addArticles= async(req,res)=>{
+//   console.log(req.body,'reqqhy')
+//     const { title, category, date, body ,imagetitle,secondparagraph} = req.body;
+//     const dateString = date
     
-  const dateObject = new Date(dateString);
-  const formattedDate = dateObject.toLocaleDateString();
+//   const dateObject = new Date(dateString);
+//   const formattedDate = dateObject.toLocaleDateString();
 
    
-    const imageFiles = req.files;
+//     const imageFiles = req.files;
 
-    // Create a new NewsModel instance with the extracted data
-    const newNews = new ArticleModel({
-      title,
-      category,
-      date:formattedDate,
-      body,
-      images: imageFiles.map((file) => file.filename),
-      imagetitle,
-      secondparagraph
-    });
+//     // Create a new NewsModel instance with the extracted data
+//     const newNews = new ArticleModel({
+//       title,
+//       category,
+//       date:formattedDate,
+//       body,
+//       images: imageFiles.map((file) => file.filename),
+//       imagetitle,
+//       secondparagraph
+//     });
 
-    try {
-        await newNews.save()
-        res.status(200).json(newNews)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
+//     try {
+//         await newNews.save()
+//         res.status(200).json(newNews)
+//     } catch (error) {
+//         res.status(500).json(error)
+//     }
+// }
 
 export const getNews=async(req,res)=>{
   console.log("dfd")
@@ -179,7 +180,7 @@ export const getNews=async(req,res)=>{
           
           return truncatedWords;
         }
-        console.log(news,'short')
+      
       //   const words=news.map((we)=>{
       //     return we.body
       //   })
@@ -195,10 +196,10 @@ function truncateToThreeWords(str) {
   const truncatedString = str.slice(0, 150)
 
   return truncatedString;
+
 }
        
-      
-        
+
     
 
         res.render('user/newsHome',{user:true,news,category,totalPages, page })
@@ -208,16 +209,17 @@ function truncateToThreeWords(str) {
         console.log(error,'ere')
     }
 }
-export const getArticles=async(req,res)=>{
-    try {
-        const news=await ArticleModel.find().sort({ createdAt: -1 }).limit(4).exec()
+
+// export const getArticles=async(req,res)=>{
+//     try {
+//         const news=await ArticleModel.find().sort({ createdAt: -1 }).limit(4).exec()
        
        
-       return res.status(200).json(news)
-    } catch (error) {
-        console.log(error,'ere')
-    }
-}
+//        return res.status(200).json(news)
+//     } catch (error) {
+//         console.log(error,'ere')
+//     }
+// }
 
 export const addCategory=async(req,res)=>{
     console.log(req.body,"xd")
@@ -269,10 +271,10 @@ export const getDetailnews=async(req,res)=>{
           
           return truncatedWords;
         }
-        console.log(news,"ne")
+       
       
       const img=news.images
-      console.log(img,"imae")
+
      
        
         if (!news) {
@@ -281,6 +283,8 @@ export const getDetailnews=async(req,res)=>{
             message: "no blogs for this user",
           });
         }
+           
+  
         res.render('user/singlePage',{user:true,news,fullNews,img})
 
         // return res.status(200).json(news);

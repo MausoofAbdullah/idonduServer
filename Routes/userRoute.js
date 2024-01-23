@@ -1,6 +1,5 @@
 import express from "express"
-import {addCategory, addNews, getCategory,getNews,getDetailnews,addArticles,
-  getArticles,adminRegister,adminLogin,
+import {addCategory, addNews, getCategory,getNews,getDetailnews,adminRegister,adminLogin,
   getAdmin} from "../controllers/AdminController.js"
 
 import { CloudinaryStorage } from "multer-storage-cloudinary";
@@ -50,9 +49,9 @@ const storage = new CloudinaryStorage({
 // router.get('/',)
 router.get('/admin',getAdmin)
 router.post('/admin',upload.array('images', 5),addNews)
-router.post('/addarticles',upload.array('images', 5),addArticles)
+// router.post('/addarticles',upload.array('images', 5),addArticles)
 router.get('/',getNews)
-router.get('/article',getArticles)
+// router.get('/article',getArticles)
 router.post('/categories',addCategory)
 router.get('/categories',getCategory)
 router.get('/detailnews/:id',getDetailnews)
