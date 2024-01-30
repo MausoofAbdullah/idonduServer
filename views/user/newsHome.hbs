@@ -1,10 +1,14 @@
 <head>
   <!-- Other head elements -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1728528418343509"
+     crossorigin="anonymous"></script>
+     
 
   {{#each news}}
     <meta property="og:title" content="{{this.title}}">
     <meta property="og:image" content="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images?.[0]}}">
     <meta property="og:description" content="{{this.shortp}}">
+     <title>ಇದೊಂದುಸುದ್ದಿ </title>
     {{!-- <meta property="og:url" content="{{your_dynamic_url}}"> --}}
   {{/each}}
  
@@ -46,7 +50,7 @@
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
                                         href="/detailnews/{{this._id}}">{{this.category}}</a>
-                                    <a class="text-white" href=""><small>Jan 01, 2045</small></a>
+                                    <a class="text-white" href=""><small>{{this.date}}</small></a>
                                 </div>
                                 <a href="/detailnews/{{this._id}}" class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="">{{this.title}}.</a>
                             </div>
@@ -104,7 +108,7 @@
                         <div class="mb-2">
                             <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
                                 href="/detailnews/{{this._id}}">{{this.category}}</a>
-                            <a class="text-white" href=""><small>Jan 01, 2045</small></a>
+                            <a class="text-white" href=""><small>{{this.date}}</small></a>
                         </div>
                         <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="/user/detailnews/{{this._id}}">{{this.title}}</a>
                     </div>
@@ -139,7 +143,7 @@
                                     <div class="mb-2">
                                         <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
                                             href="">Business</a>
-                                        <a class="text-body" href=""><small>Jan 01, 2045</small></a>
+                                        <a class="text-body" href=""><small>{{this.date}},{{this.timeAgo}}</small></a>
                                     </div>
                                     <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="/detailnews/{{this._id}}">{{this.title}}</a>
                                     
@@ -158,7 +162,7 @@
 
 
  <p class="m-0" style="display: inline-block; margin-left: 10px;">WhatsApp</p>
- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1877f2" class="bi bi-facebook" viewBox="0 0 16 16">
+ <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1877f2" class="bi bi-facebook" viewBox="0 0 16 16" onclick="shareOnFacebook('{{this.shortp}}', '{{this.images.[0]}}', '{{this._id}}')">
   <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
 </svg>
  <p class="m-0" style="display: inline-block; margin-left: 10px;">facebook</p>
@@ -291,6 +295,7 @@
                         </div>
                     </div>
                     <!-- Social Follow End -->
+                    
 
                     <!-- Ads Start -->
                     <div class="mb-3">
@@ -309,20 +314,20 @@
                     <!-- Popular News Start -->
                     <div class="mb-3">
                         <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">Tranding News</h4>
+                            <h4 class="m-0 text-uppercase font-weight-bold">Trending News</h4>
                         </div>
                         <div class="bg-white border border-top-0 p-3">
-                            {{#each news}}
+                            {{#each trendingNews}}
                             <a href="/detailnews/{{this._id}}">
 
                             <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
-                                <img class="img-fluid" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}" style="height: 50px; width:50px;" alt="dkn">
+                                <img class="img-fluid" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}" style="height: 90px; width:130px;" alt="dkn">
                                 <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
                                     <div class="mb-2">
                                         <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
-                                        <a class="text-body" href=""><small>Jan 01, 2045</small></a>
+                                        <a class="text-body" href=""><small>{{this.date}}<span>{{this.timead}}</span></small></a>
                                     </div>
-                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet elit...</a>
+                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{this.title}} <span style="font-size: smaller;color:#39569E;padding-left:5px">click to read more...</span></a>
                                 </div>
                             </div>
                             </a>
@@ -330,6 +335,17 @@
                           
                         
 {{!--             --}}
+                   
+                <div class="d-flex justify-content-between mt-3">
+        {{#if (gt trendingPage 1)}}
+         
+                       <a href="?trendingPage={{previousPage}}" class="btn btn-primary">Previous</a>
+        {{/if}}
+            
+        {{#if (lt trendingPage trendingTotalPages)}}
+            <a href="?trendingPage={{nextPage}}" class="btn btn-primary">Next</a>
+        {{/if}}
+    </div>
                         </div>
                     </div>
                     <!-- Popular News End -->
@@ -373,6 +389,15 @@
     <!-- News With Sidebar End -->
 
                      <script>
+                                         function shareOnFacebook(title, image, newsId)  {
+    
+    // Implement logic to open Facebook share dialog with shareLink
+     const baseUrl = window.location.origin; 
+    const encodedTitle = encodeURIComponent(title);
+    const encodedUrl = encodeURIComponent(`${baseUrl}/detailnews/${newsId}`);
+    const facebookLink=`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
+    window.open(facebookLink, '_blank');
+  };
   
 
  function shareOnWhatsApp(title, image, newsId) {

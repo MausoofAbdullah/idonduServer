@@ -48,6 +48,8 @@ handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 handlebars.registerHelper('isEqual', function (a, b, options) {
   return a === b ? options.fn(this) : options.inverse(this);
 });
+
+
 // import dotenv from "dotenv";
 import cors from "cors" 
 // import AuthRoute from "./Routes/Auth.js"
@@ -56,11 +58,17 @@ import userRoute from "./Routes/userRoute.js"
 
 const app = express();
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.engine('hbs',hbs.engine({helpers:{inc:function(value,options){return parseInt(value)+1;}},
+app.engine('hbs',hbs.engine({helpers:{inc:function(value,options){return parseInt(value)+1;}, gt: function (a, b) {
+  return a > b;
+}, lt: function (a, b) {
+  return a < b;
+},
+add: function (a, b) {
+  return a + b;
+},},
 extname:'hbs',defaultLayout:'user-layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials/',
  runtimeOptions: { allowProtoPropertiesByDefault: true, allowProtoMethodsByDefault: true,},}));
 

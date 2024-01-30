@@ -3,6 +3,7 @@ import NewsModel from "../Models/newsModel.js";
 import ArticleModel from "../Models/articleModel.js";
 import UserModel from "../Models/userModel.js";
 import dotenv from "dotenv"
+import timeago from 'timeago.js';
 
 
 
@@ -103,6 +104,7 @@ export const addNews= async(req,res)=>{
     
   const dateObject = new Date(dateString);
   const formattedDate = dateObject.toLocaleDateString();
+  // console.log(formattedDate,"date")
 
    
     const imageFiles = req.files;
@@ -161,11 +163,12 @@ export const addNews= async(req,res)=>{
 // }
 
 export const getNews=async(req,res)=>{
-  console.log("dfd")
+  
     try {
       const perPage = 6;
       const page = req.query.page || 1;
         const news=await NewsModel.find().sort({ createdAt: -1 }).skip((page - 1) * perPage) .limit(perPage).exec()
+       
         const category = await categoryModel.find().exec()
         const totalNewsCount = await NewsModel.countDocuments();
         const totalPages = Math.ceil(totalNewsCount / perPage);
@@ -173,10 +176,18 @@ export const getNews=async(req,res)=>{
         news.forEach(newsItem => {
           newsItem.shortp = truncateToWords(newsItem.body);
         });
+ 
+        const formattedNews = news.map((item) => {
+          return {
+              ...item.toObject(),
+              timeAgo: timeago.format(item.createdAt),
+          };
+      });
+    
 
         function truncateToWords(str) {
           // const words = str.split(/\s+/);
-          const truncatedWords = str.slice(0, 100);
+          const truncatedWords = str.slice(0 , 100);
           
           return truncatedWords;
         }
@@ -198,11 +209,25 @@ function truncateToThreeWords(str) {
   return truncatedString;
 
 }
-       
+const previousPage = Math.max(1, page - 1);
+const nextPage = Math.max(1, page + 1);
+
+    // Pagination for trending news
+    const trendingPerPage = 6; // Set the number of trending news items per page
+    const trendingPage = req.query.trendingPage || 1;
+
+    const trendingNews = await NewsModel.find()
+        .sort({ createdAt: -1 })
+        .skip((trendingPage - 1) * trendingPerPage)
+        .limit(trendingPerPage)
+        .exec();
+
+    const trendingTotalCount = await NewsModel.countDocuments();
+    const trendingTotalPages = Math.ceil(trendingTotalCount / trendingPerPage);
 
     
 
-        res.render('user/newsHome',{user:true,news,category,totalPages, page })
+        res.render('user/newsHome',{user:true,news:formattedNews,category,totalPages, page ,previousPage,nextPage, trendingNews, trendingTotalPages, trendingPage})
         
       //  return res.status(200).json(news)
     } catch (error) {
@@ -261,6 +286,9 @@ export const getDetailnews=async(req,res)=>{
         // console.log(id,"id")
         const news = await NewsModel.findById(id);
         const fullNews=await NewsModel.find().sort({ createdAt: -1 }).limit(6).exec()
+
+        const timead=timeago.format(news.createdAt);
+       
       
           news.shortp = truncateToWords(news.body);
         
@@ -271,7 +299,14 @@ export const getDetailnews=async(req,res)=>{
           
           return truncatedWords;
         }
-       
+        
+    
+        const previousNews = await NewsModel.findOne({ createdAt: { $lt: news.createdAt } }).sort({ createdAt: -1 }).exec() ||await NewsModel.findOne().sort({ createdAt: -1 }).exec();
+      
+
+        // Get the next news
+        const nextNews = await NewsModel.findOne({ createdAt: { $gt: news.createdAt } }).sort({ createdAt: 1 }).exec() || await NewsModel.findOne().sort({ createdAt: 1 }).exec();
+      
       
       const img=news.images
 
@@ -285,7 +320,7 @@ export const getDetailnews=async(req,res)=>{
         }
            
   
-        res.render('user/singlePage',{user:true,news,fullNews,img})
+        res.render('user/singlePage',{user:true,news,fullNews,img,previousNews,nextNews,timead})
 
         // return res.status(200).json(news);
       } catch (error) {
