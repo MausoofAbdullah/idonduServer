@@ -1,170 +1,3 @@
-<head>
-  <!-- Other head elements -->
-  <script
-    async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1728528418343509"
-    crossorigin="anonymous"
-  ></script>
-
-  {{#each news}}
-    <meta property="og:title" content="{{this.title}}" />
-    <meta
-      property="og:image"
-      content="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images?.[0]}}"
-    />
-    <meta property="og:description" content="{{this.shortp}}" />
-    <title>ಇದೊಂದುಸುದ್ದಿ </title>
-    {{!-- <meta property="og:url" content="{{your_dynamic_url}}"> --}}
-  {{/each}}
-
-</head>
-
-<!-- Main News Slider Start -->
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-7 px-0">
-      <div class="owl-carousel main-carousel position-relative">
-        {{#each news}}
-          {{#isEqual this.category "ವಿಶೇಷ"}}
-            <div
-              class="position-relative overflow-hidden"
-              style="height: 500px;"
-            >
-              <img
-                class="img-fluid h-100"
-                src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}"
-                style="object-fit: cover;"
-              />
-              <div class="overlay">
-                <div class="mb-2">
-                  <a
-                    class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                    href="/detailnews/{{this._id}}"
-                  >{{this.category}}</a>
-                  <a class="text-white" href="">{{this.date}}</a>
-                </div>
-                <a
-                  class="h2 m-0 text-white text-uppercase font-weight-bold"
-                  href="/detailnews/{{this._id}}"
-                >{{this.title}}</a>
-              </div>
-            </div>
-          {{/isEqual}}
-        {{/each}}
-
-      </div>
-    </div>
-    <div class="col-lg-5 px-0">
-      <div class="row mx-0">
-
-        {{#each news}}
-          {{#ifCond @index "<" 4}}
-            <div class="col-md-6 px-0">
-              <div
-                class="position-relative overflow-hidden"
-                style="height: 250px;"
-              >
-                <img
-                  class="img-fluid w-100 h-100"
-                  src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}"
-                  style="object-fit: cover;"
-                />
-                <div class="overlay">
-                  <div class="mb-2">
-                    <a
-                      class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                      href="/detailnews/{{this._id}}"
-                    >{{this.category}}</a>
-                    <a class="text-white" href=""><small
-                      >{{this.date}}</small></a>
-                  </div>
-                  <a
-                    href="/detailnews/{{this._id}}"
-                    class="h6 m-0 text-white text-uppercase font-weight-semi-bold"
-                    href=""
-                  >{{this.title}}.</a>
-                </div>
-              </div>
-            </div>
-          {{/ifCond}}
-        {{/each}}
-
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Main News Slider End -->
-
-<!-- Breaking News Start -->
-<div class="container-fluid bg-dark py-3 mb-3">
-  <div class="container">
-    <div class="row align-items-center bg-dark">
-      <div class="col-12">
-        <div class="d-flex justify-content-between">
-          <div
-            class="bg-primary  text-center font-weight-medium py-2"
-            style="width: 170px; color: red; animation: blink 1s infinite;"
-          >Breaking News</div>
-          <div
-            class="owl-carousel tranding-carousel position-relative d-inline-flex align-items-center ml-3"
-            style="width: calc(100% - 140px); padding-right: 100px;"
-          >
-            {{#each news}}
-              {{#isEqual this.category "breakingnews"}}
-                <div class="text-truncate"><a
-                    class="text-white text-uppercase font-weight-semi-bold"
-                    href="/detailnews/{{this._id}}"
-                  >{{this.title}}</a></div>
-              {{/isEqual}}
-            {{/each}}
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-<!-- Breaking News End -->
-
-<!-- Featured News Slider Start -->
-<div class="container-fluid pt-5 mb-3">
-  <div class="container">
-    <div class="section-title">
-      <h4 class="m-0 text-uppercase font-weight-bold">Featured News</h4>
-    </div>
-    <div class="owl-carousel news-carousel carousel-item-4 position-relative">
-
-      {{#each news}}
-
-        <div class="position-relative overflow-hidden" style="height: 300px;">
-          <img
-            class="img-fluid h-100"
-            src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}"
-            style="object-fit: cover;"
-          />
-          <div class="overlay">
-            <div class="mb-2">
-              <a
-                class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                href="/detailnews/{{this._id}}"
-              >{{this.category}}</a>
-              <a class="text-white" href=""><small>{{this.date}}</small></a>
-            </div>
-            <a
-              class="h6 m-0 text-white text-uppercase font-weight-semi-bold"
-              href="/detailnews/{{this._id}}"
-            >{{this.title}}</a>
-          </div>
-        </div>
-      {{/each}}
-      
-
-    </div>
-    
-  </div>
-</div>
-<!-- Featured News Slider End -->
-
 <!-- News With Sidebar Start -->
 <div class="container-fluid">
   <div class="container">
@@ -180,7 +13,7 @@
               >View All</a>
             </div>
           </div>
-          {{#each news}}
+          {{#each cnews}}
             {{#ifCond @index "<" 6}}
 
               <div class="col-lg-6">
@@ -261,7 +94,6 @@
                     </div>
 
                   </div>
-                  
                   {{! <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
                                     <div class="d-flex align-items-center">
                                         <img class="rounded-circle mr-2" src="img/user.jpg" width="25" height="25" alt="">
@@ -277,7 +109,61 @@
             {{/ifCond}}
 
           {{/each}}
-    
+          {{!-- large screen visibility --}}
+{{!-- 
+         <div class="col-lg-12">
+                    <div class="mb-3 ">
+    <!-- Show on screens larger than medium (md) size -->
+      <div class="row">
+        <div class="col-12">
+            <!-- Previous and Next News -->
+            <div class="mb-3">
+                
+                    
+
+                    <div class="row">
+                        <!-- Previous News -->
+                        <div class="col-6">
+                            <a href="/detailnews/{{previousNews._id}}">
+                             <h4 class="m-0 text-uppercase font-weight-bold">previous news</h4>
+                                <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
+                                    <img class="img-fluid" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{previousNews.images.[0]}}" alt="" style="height: 90px;width:90px;" >
+                                    <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
+                                        <div class="mb-2">
+                                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{previousNews.category}}</a>
+                                            <a class="text-body" href=""><small>{{previousNews.date}}</small></a>
+                                        </div>
+                                        <a href="/detailnews/{{previousNews._id}}" class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{previousNews.shortp}}</a>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Next News -->
+                        
+                        <div class="col-6">
+                            
+                            <a href="/detailnews/{{nextNews._id}}">
+                             <h4 class="m-0 text-uppercase font-weight-bold">Next news</h4>
+                                <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
+                                    <img class="img-fluid" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{nextNews.images.[0]}}" alt="" style="height: 90px;width:90px;" >
+                                    <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
+                                        <div class="mb-2">
+                                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{previousNews.category}}</a>
+                                            <a class="text-body" href=""><small>{{nextNews.date}}</small></a>
+                                        </div>
+                                        <a href="/detailnews/{{nextNews._id}}" class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{nextNews.shortp}}</a>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</div> --}}
           <div class="col-lg-12 mb-3">
             <a href=""><img
                 class="img-fluid w-100"
@@ -353,7 +239,7 @@
         </div>
 
       </div>
-
+      
       <div class="col-lg-4">
         <!-- Social Follow Start -->
         <div class="mb-3">
@@ -364,30 +250,7 @@
             <div style="border: solid 1px red;">
               <h1>Market your buisiness here</h1>
             </div>
-            {{! <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #39569E;">
-                                <i class="fab fa-facebook-f text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Fans</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #52AAF4;">
-                                <i class="fab fa-twitter text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Followers</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #0185AE;">
-                                <i class="fab fa-linkedin-in text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Connects</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #C8359D;">
-                                <i class="fab fa-instagram text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Followers</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #DC472E;">
-                                <i class="fab fa-youtube text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Subscribers</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none" style="background: #055570;">
-                                <i class="fab fa-vimeo-v text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Followers</span>
-                            </a> }}
+            
           </div>
         </div>
         <!-- Social Follow End -->
@@ -431,14 +294,14 @@
                     <div class="mb-2">
                       <a
                         class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2"
-                        href="/detailnews/{{this._id}}"
-                      >{{this.category}}</a>
+                        href=""
+                      >Business</a>
                       <a class="text-body" href=""><small>{{this.date}}<span
                           >{{this.timead}}</span></small></a>
                     </div>
                     <a
                       class="h6 m-0 text-secondary text-uppercase font-weight-bold"
-                      href="/detailnews/{{this._id}}"
+                      href=""
                     >{{this.title}}
                       <span
                         style="font-size: smaller;color:#39569E;padding-left:5px"
@@ -511,12 +374,8 @@
         </div>
         <!-- Tags End -->
       </div>
-    </div>
-  </div>
-</div>
-<!-- News With Sidebar End -->
 
-<script>
+      <script>
   function shareOnFacebook(title, image, newsId) { // Implement logic to open
   Facebook share dialog with shareLink const baseUrl = window.location.origin;
   const encodedTitle = encodeURIComponent(title); const encodedUrl =
@@ -529,10 +388,3 @@
   `https://wa.me/?text=${encodedUrl}`; // Open WhatsApp link in a new window or
   tab window.open(whatsappLink, '_blank'); }
 </script>
-          <style>
-    @keyframes blink {
-        50% {
-            opacity: 0;
-        }
-    }
-</style>

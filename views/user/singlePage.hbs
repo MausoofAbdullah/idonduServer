@@ -26,8 +26,14 @@
                         </div>
                         <div class="owl-carousel tranding-carousel position-relative d-inline-flex align-items-center bg-white border border-left-0"
                             style="width: calc(100% - 140px); padding-right: 100px;">
-                            <div class="text-truncate"><a class="text-secondary text-uppercase font-weight-semi-bold" href="">Lorem ipsum dolor sit amet elit. Proin interdum lacus eget ante tincidunt, sed faucibus nisl sodales</a></div>
-                            <div class="text-truncate"><a class="text-secondary text-uppercase font-weight-semi-bold" href="">Lorem ipsum dolor sit amet elit. Proin interdum lacus eget ante tincidunt, sed faucibus nisl sodales</a></div>
+                            {{#each trendingNews}}
+              {{#isEqual this.category "breakingnews"}}
+                <div class="text-truncate"><a
+                    class="text-white text-uppercase font-weight-semi-bold"
+                    href="/detailnews/{{this._id}}"
+                  >{{this.title}}</a></div>
+              {{/isEqual}}
+            {{/each}}
                         </div>
                     </div>
                 </div>
@@ -205,10 +211,10 @@
                                     <img class="img-fluid" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{previousNews.images.[0]}}" alt="" style="height: 90px;width:90px;" >
                                     <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
                                         <div class="mb-2">
-                                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
+                                            {{!-- <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{previousNews.category}}</a> --}}
                                             <a class="text-body" href=""><small>{{previousNews.date}}</small></a>
                                         </div>
-                                        <a href="/detailnews/{{previousNews._id}}" class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{previousNews.title}}<span style="font-size: smaller;color:#39569E;padding-left:5px">click to read more...</span>.</a>
+                                        <a href="/detailnews/{{previousNews._id}}" class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{previousNews.shortp}}</a>
                                     </div>
                                 </div>
                             </a>
@@ -224,10 +230,10 @@
                                     <img class="img-fluid" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{nextNews.images.[0]}}" alt="" style="height: 90px;width:90px;" >
                                     <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
                                         <div class="mb-2">
-                                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
+                                            {{!-- <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{previousNews.category}}</a> --}}
                                             <a class="text-body" href=""><small>{{nextNews.date}}</small></a>
                                         </div>
-                                        <a href="/detailnews/{{nextNews._id}}" class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{nextNews.title}}<span style="font-size: smaller;color:#39569E;padding-left:5px">click to read more...</span>.</a>
+                                        <a href="/detailnews/{{nextNews._id}}" class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{nextNews.shortp}}</a>
                                     </div>
                                 </div>
                             </a>
@@ -264,22 +270,37 @@
                             <h4 class="m-0 text-uppercase font-weight-bold">Trending News</h4>
                         </div>
                         <div class="bg-white border border-top-0 p-3">
-                          {{#each fullNews}}
-                          <a href="/user/detailnews/{{this._id}}">
+                          {{#each trendingNews}}
+                          <a href="/detailnews/{{this._id}}">
 
                             <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
                                 <img class="img-fluid" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}" alt="" style="height: 90px;width:130px;" >
                                 <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
                                     <div class="mb-2">
-                                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
+                                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="/detailnews/{{this._id}}">{{this.category}}</a>
                                         <a class="text-body" href=""><small>{{this.date}}</small></a>
                                     </div>
-                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{this.title}}<span style="font-size: smaller;color:#39569E;padding-left:5px">click to read more...</span>.</a>
+                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="/detailnews/{{this._id}}">{{this.title}}<span style="font-size: smaller;color:#39569E;padding-left:5px">click to read more...</span>.</a>
                                 </div>
                             </div>
                           </a>
                             {{/each}}
-                       
+                            <div class="d-flex justify-content-between mt-3">
+              {{#if (gt trendingPage 1)}}
+
+                <a
+                  href="?trendingPage={{previousPage}}"
+                  class="btn btn-primary"
+                >Previous</a>
+              {{/if}}
+
+              {{#if (lt trendingPage trendingTotalPages)}}
+                <a
+                  href="?trendingPage={{nextPage}}"
+                  class="btn btn-primary"
+                >Next</a>
+              {{/if}}
+            </div>
                        
                         </div>
                     </div>

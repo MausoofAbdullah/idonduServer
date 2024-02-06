@@ -1,6 +1,4 @@
 
-    <!-- Topbar Start -->
- 
     <div class="container-fluid d-none d-lg-block">
         <div class="row align-items-center bg-dark px-lg-5">
             <div class="col-lg-9">
@@ -73,18 +71,19 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
-
+                
                 <div class="navbar-nav mr-auto py-0">
-                    <a href="/" class="nav-item nav-link ">Home</a>
-                    <a href="/category?=sports" class="nav-item nav-link">ಕ್ರೀಡೆ</a>
-                    <a href="/category?=politics" class="nav-item nav-link">ರಾಜಕೀಯ</a>
-                    <a href="/category?=religious" class="nav-item nav-link">ಧಾರ್ಮಿಕ</a>
-                    <a href="/category?=current" class="nav-item nav-link">ಪ್ರಚಲಿತ</a>
-                    <a href="/category?=foreign" class="nav-item nav-link">ವಿದೇಶ</a>
-                    <a href="/category?=special" class="nav-item nav-link">ವಿಶೇಷ </a>
-                    <a href="/category?=education" class="nav-item nav-link">ಶೈಕ್ಷಣಿಕ  </a>
-                    <a href="/login" class="nav-item nav-link">Login</a>
-                    <a href="/contact" class="nav-item nav-link">contactus </a>
+                    <a href="/admin" class="nav-item nav-link ">Adminpage</a>
+                    
+                    <a href="/categories" class="nav-item nav-link">addcategories</a>
+                    <a href="/newslist" class="nav-item nav-link">newslist</a>
+                   
+                {{#if admins}}
+                    <a href="/logout" class="nav-item nav-link">Logout</a>
+                    {{else}}
+                    <a href="/admin" class="nav-item nav-link">Login</a>
+            {{/if}}
+                    <a href="/category?category=contact" class="nav-item nav-link">contactus </a>
                     {{!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
                         <div class="dropdown-menu rounded-0 m-0">
@@ -104,30 +103,3 @@
             </div>
         </nav>
     </div>
-    <!-- Navbar End -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
-<script>
-$(document).ready(function() {
-    // Get the current URL with query parameters
-    const currentUrl = window.location.href;
-
-    // Remove the "active" class from all navigation links
-    $(".navbar-nav a.nav-link").removeClass("active");
-
-    // Find the link with the matching href attribute and add "active" class
-    $(".navbar-nav a.nav-link").filter(function() {
-        // Check specifically for the "Home" link
-        if ($(this).attr("href") === "/") {
-            return currentUrl === $(this).prop("href");
-        }
-        // For other links, check if the current URL includes the href
-        return currentUrl.includes($(this).prop("href"));
-    }).addClass("active");
-});
-</script>
-
-
-
-

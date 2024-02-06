@@ -1,6 +1,6 @@
 import express from "express"
-import {addCategory, addNews, getCategory,getNews,getDetailnews,adminRegister,adminLogin,
-  getAdmin} from "../controllers/AdminController.js"
+import {addCategory, addNews, getCategory,adminRegister,adminLogin,
+  getAdmin,getadminLogin,adminLogout} from "../controllers/AdminController.js"
 
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { v2 as cloudinary } from 'cloudinary';
@@ -46,18 +46,21 @@ const storage = new CloudinaryStorage({
     },
   });
  
-// router.get('/',)
-router.get('/admin',getAdmin)
-router.post('/admin',upload.array('images', 5),addNews)
+router.get('/admin',authMiddleware,getadminLogin)
+router.post('/admin',adminLogin)
+router.get('/admin-news',authMiddleware,getAdmin)
+router.get('/admin-news',authMiddleware,getAdmin)
+router.post('/admin-addnews',authMiddleware,upload.array('images', 5),addNews)
 // router.post('/addarticles',upload.array('images', 5),addArticles)
-router.get('/',getNews)
+// router.get('/',getNews)
 // router.get('/article',getArticles)
-router.post('/categories',addCategory)
-router.get('/categories',getCategory)
-router.get('/detailnews/:id',getDetailnews)
+router.post('/categories',authMiddleware,addCategory)
+router.get('/categories',authMiddleware,getCategory)
+// router.get('/detailnews/:id',getDetailnews)
 
 router.post('/register',adminRegister)
 router.post('/login',adminLogin)
+router.get('/logout',adminLogout)
 
 
 

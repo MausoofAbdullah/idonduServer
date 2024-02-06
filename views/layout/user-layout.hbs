@@ -28,7 +28,13 @@
 </head>
 
 <body>
+      
+    {{#if admin}}
+    {{>admin-header}}
+    
+    {{else}}
     {{>user-header}}
+    {{/if}}
     <!-- Topbar Start -->
  {{{body}}}
  {{>footer}}
