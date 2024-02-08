@@ -79,7 +79,7 @@ export const getadminLogin=async(req,res,next)=>{
               id: admin._id,
             },
             process.env.JWT_KEY,
-            { expiresIn: "1h" }
+            { expiresIn: "24h" }
           );
    
           res.cookie('token', token);
@@ -211,7 +211,7 @@ export const getCategory=async(req,res,next)=>{
     try {
         
         const catDetails = await categoryModel.find().exec()
-        console.log(catDetails,"catwy")
+      
         const admins=req.user.email
     res.render('admin/categorypage',{catDetails,admin:true,admins})
       // return res.status(200).json(catDetails)

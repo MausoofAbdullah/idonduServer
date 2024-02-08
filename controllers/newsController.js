@@ -27,6 +27,8 @@ export const getNews=async(req,res,next)=>{
       const perPage = 6;
       const page = req.query.page || 1;
         const news=await NewsModel.find().sort({ createdAt: -1 }).skip((page - 1) * perPage) .limit(perPage).exec()
+        const allnews=await NewsModel.find().sort({ createdAt: -1 }).limit(10).exec()
+
        
         const category = await categoryModel.find().exec()
         
@@ -49,7 +51,7 @@ export const getNews=async(req,res,next)=>{
 
         function truncateToWords(str) {
           // const words = str.split(/\s+/);
-          const truncatedWords = str.slice(0 , 100);
+          const truncatedWords = str.slice(0 , 200);
           
           return truncatedWords;
         }
@@ -91,7 +93,7 @@ const nextPage = Math.max(1, page + 1);
 
     
 
-        res.render('user/newsHome',{user:true,news:formattedNews,previousNews,nextNews,category,totalPages, page ,previousPage,nextPage, trendingNews, trendingTotalPages, trendingPage,currentPath,currentDate})
+        res.render('user/newsHome',{user:true,news:formattedNews,allnews,previousNews,nextNews,category,totalPages, page ,previousPage,nextPage, trendingNews, trendingTotalPages, trendingPage,currentPath,currentDate})
         
       //  return res.status(200).json(news)
     } catch (error) {
@@ -111,13 +113,16 @@ const nextPage = Math.max(1, page + 1);
 export const getDetailnews=async(req,res,next)=>{
     try {
         const { id } = req.params;
+        const {slug} =req.params
         const page = req.query.page || 1;
         const cDate = moment();
         const currentDate = cDate.format('MMMM DD dddd YYYY')
        
         
         // console.log(id,"id")
-        const news = await NewsModel.findById(id);
+        const news = await NewsModel.findOne({slug:slug});
+        console.log(news,"solugnew")
+
         // const fullNews=await NewsModel.find().sort({ createdAt: -1 }).limit(4).exec()
 
         const timead=timeago.format(news.createdAt);
@@ -143,14 +148,16 @@ export const getDetailnews=async(req,res,next)=>{
         const nextNews = await NewsModel.findOne({ createdAt: { $gt: news.createdAt } }).sort({ createdAt: 1 }).exec() || await NewsModel.findOne().sort({ createdAt: 1 }).exec();
       
       
-      const img=news.images
+      const img=news.images.slice(2)
+      console.log(img,"imd")
+
 
       nextNews.shortp = truncateToWords(nextNews.title);
         
 
       function truncateToWords(str) {
         // const words = str.split(/\s+/);
-        const truncatedWords = str.slice(0, 50);
+        const truncatedWords = str.slice(0, 80);
         
         return truncatedWords;
       }
@@ -173,10 +180,14 @@ const nextPage = Math.max(1, page + 1);
        .skip((trendingPage - 1) * trendingPerPage)
        .limit(trendingPerPage)
        .exec();
-
+       trendingNews.forEach(newsItem => {
+        newsItem.shortp = truncateToWords(newsItem.title);
+      });
    const trendingTotalCount = await NewsModel.countDocuments();
    const trendingTotalPages = Math.ceil(trendingTotalCount / trendingPerPage);
-        res.render('user/singlePage',{user:true,news,img,previousNews,nextNews,timead,currentDate, trendingNews, trendingTotalPages, trendingPage,previousPage,nextPage})
+   const allnews=await NewsModel.find().sort({ createdAt: -1 }).limit().exec()
+   
+        res.render('user/singlePage',{user:true,news,img,previousNews,nextNews,timead,currentDate,allnews, trendingNews, trendingTotalPages, trendingPage,previousPage,nextPage})
 
         // return res.status(200).json(news);
       } catch (error) {
@@ -197,11 +208,14 @@ export const getCategorynews=async(req,res,next)=>{
     const cDate = moment();
     const currentDate = cDate.format('MMMM DD dddd YYYY')
     try {
+        
         let category = req.query.category;
+      
         const currentPath = req.path;
         const perPage = 6;
         const page = req.query.page || 1;
           const cnews=await NewsModel.find({ category }).sort({ createdAt: -1 }).skip((page - 1) * perPage) .limit(perPage).exec()
+          
           
         const news=await NewsModel.find().sort({ createdAt: -1 }).skip((page - 1) * perPage) .limit(perPage).exec()
          

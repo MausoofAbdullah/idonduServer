@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 const {ObjectId}=mongoose.Schema;
+import {marked} from 'marked'
+import slugify from "slugify";
 
 const newsSchema=mongoose.Schema(
     {
         
-        title:String,
+        title: String,
         subtitle:String,
         category:String,
         images:[String],
@@ -26,6 +28,11 @@ const newsSchema=mongoose.Schema(
           reportcount:{
             type:Number,
             default:0
+          },
+          slug:{
+            type:String,
+            required:true,
+            unique:true
           }
 
    
@@ -34,5 +41,12 @@ const newsSchema=mongoose.Schema(
         timestamps:true
     }
 )
+newsSchema.pre('validate',function(next){
+    if(this.title){
+        this.slug=slugify(this.title,{lower:true,
+        strict:true})
+    }
+    next()
+})
 const NewsModel=mongoose.model("posts",newsSchema)
 export default NewsModel

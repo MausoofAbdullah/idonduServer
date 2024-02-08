@@ -26,12 +26,15 @@
                         </div>
                         <div class="owl-carousel tranding-carousel position-relative d-inline-flex align-items-center bg-white border border-left-0"
                             style="width: calc(100% - 140px); padding-right: 100px;">
-                            {{#each trendingNews}}
-              {{#isEqual this.category "breakingnews"}}
+                            {{#each allnews}}
+            {{#isEqual this.category "breakingnews"}}
+          {{#ifCond @index "<" 3}}
+
                 <div class="text-truncate"><a
-                    class="text-white text-uppercase font-weight-semi-bold"
-                    href="/detailnews/{{this._id}}"
+                    class="text-dark     text-uppercase font-weight-semi-bold"
+                    href="/detailnews/{{this.slug}}"
                   >{{this.title}}</a></div>
+                  {{/ifCond}}
               {{/isEqual}}
             {{/each}}
                         </div>
@@ -51,7 +54,7 @@
                     <!-- News Detail Start -->
                     
                     <div class="position-relative mb-3">
-                        <img class="img-fluid w-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.images.[0]}}" style="object-fit: cover;height:300px">
+                        <img class="img-fluid w-100 h-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.images.[0]}}" style="object-fit: cover;">
                     <div class="bg-white border border-top-0 p-4">
                             <div class="mb-3">
                                 <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
@@ -71,9 +74,14 @@
                            
                             <p class="">{{news.secondparagraph}}</p>
                             {{!-- <h5 class="text-uppercase font-weight-bold mb-3">Lorem ipsum dolor sit amet elit</h5> --}}
+                             <img class="img-fluid w-100 h-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.images.[1]}}" style="object-fit: cover;">
+                       <h4>{{news.imagetitle2}}</h4>
                             {{#each img}}
-                          <img class="img-fluid w-100 mb-2 " src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this}}" style="object-fit: cover;height:300px">
-                         {{/each}}
+                          <img class="img-fluid w-100 h-100 mb-2 " src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this}}" style="object-fit: cover;">
+                     
+                    {{/each}}
+                         
+      
 
                             <p>{{news.thirdparagraph}}</p>
                         
@@ -212,7 +220,7 @@
                                     <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
                                         <div class="mb-2">
                                             {{!-- <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{previousNews.category}}</a> --}}
-                                            <a class="text-body" href=""><small>{{previousNews.date}}</small></a>
+                                            
                                         </div>
                                         <a href="/detailnews/{{previousNews._id}}" class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{previousNews.shortp}}</a>
                                     </div>
@@ -231,7 +239,7 @@
                                     <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
                                         <div class="mb-2">
                                             {{!-- <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{previousNews.category}}</a> --}}
-                                            <a class="text-body" href=""><small>{{nextNews.date}}</small></a>
+                                            
                                         </div>
                                         <a href="/detailnews/{{nextNews._id}}" class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">{{nextNews.shortp}}</a>
                                     </div>
@@ -271,16 +279,16 @@
                         </div>
                         <div class="bg-white border border-top-0 p-3">
                           {{#each trendingNews}}
-                          <a href="/detailnews/{{this._id}}">
+                          <a href="/detailnews/{{this.slug}}">
 
                             <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
                                 <img class="img-fluid" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}" alt="" style="height: 90px;width:130px;" >
                                 <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
                                     <div class="mb-2">
-                                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="/detailnews/{{this._id}}">{{this.category}}</a>
-                                        <a class="text-body" href=""><small>{{this.date}}</small></a>
+                                        
+                                       
                                     </div>
-                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="/detailnews/{{this._id}}">{{this.title}}<span style="font-size: smaller;color:#39569E;padding-left:5px">click to read more...</span>.</a>
+                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="/detailnews/{{this.slug}}">{{this.shortp}}<span style="font-size: smaller;color:#39569E;padding-left:5px">click to read more...</span>.</a>
                                 </div>
                             </div>
                           </a>
@@ -312,14 +320,15 @@
                             <h4 class="m-0 text-uppercase font-weight-bold">Newsletter</h4>
                         </div>
                         <div class="bg-white text-center border border-top-0 p-3">
-                            <p>Aliqu justo et labore at eirmod justo sea erat diam dolor diam vero kasd</p>
+                            <p>To post your articles and news,please signup. This facility will
+              be available soon. Please wait...</p>
                             <div class="input-group mb-2" style="width: 100%;">
                                 <input type="text" class="form-control form-control-lg" placeholder="Your Email">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary font-weight-bold px-3">Sign Up</button>
                                 </div>
                             </div>
-                            <small>Lorem ipsum dolor sit amet elit</small>
+                            <small>share your favorite articles and news</small>
                         </div>
                     </div>
                     <!-- Newsletter End -->
@@ -355,4 +364,5 @@
             opacity: 0;
         }
     }
+
 </style>

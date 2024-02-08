@@ -49,8 +49,11 @@ handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 });
 handlebars.registerHelper('isEqual', function (a, b, options) {
   return a === b ? options.fn(this) : options.inverse(this);
+  
 });
-
+handlebars.registerHelper('isSecondImage', function(index, options) {
+  return index === 1 ? options.fn(this) : options.inverse(this);
+});
 
 // import dotenv from "dotenv";
 import cors from "cors" 

@@ -35,6 +35,11 @@ const storage = new CloudinaryStorage({
     params: {
       folder: 'news', // Set your desired folder in Cloudinary
       allowed_formats: ['jpg', 'jpeg', 'png'],
+       // Add compression settings
+    transformation: [
+      { width: 1000, height: 1000, crop: 'limit' }, // Example: Resize to maximum 1000x1000
+      { quality: 'auto', fetch_format: 'auto' } // Enable automatic quality and format optimization
+    ],
       // You can add more Cloudinary parameters as needed
     },
   });
