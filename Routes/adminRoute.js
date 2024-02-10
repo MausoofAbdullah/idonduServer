@@ -50,12 +50,13 @@ const storage = new CloudinaryStorage({
       fileSize: 1024 * 1024 * 5, // 5MB limit (adjust as needed)
     },
   });
+  const multipleupload=upload.fields([{name:'image1'},{name:"image2"},{name:"images",maxCount:5}])
  
 router.get('/admin',authMiddleware,getadminLogin)
 router.post('/admin',adminLogin)
 router.get('/admin-news',authMiddleware,getAdmin)
-router.get('/admin-news',authMiddleware,getAdmin)
-router.post('/admin-addnews',authMiddleware,upload.array('images', 5),addNews)
+// router.get('/admin-news',authMiddleware,getAdmin)
+router.post('/admin-addnews',authMiddleware,multipleupload,addNews)
 // router.post('/addarticles',upload.array('images', 5),addArticles)
 // router.get('/',getNews)
 // router.get('/article',getArticles)

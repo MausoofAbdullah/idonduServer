@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 const {ObjectId}=mongoose.Schema;
 import {marked} from 'marked'
-import slugify from "slugify";
+// import slugify from "slugify";
+import speakingurl from 'speakingurl';
+// import slugify from 'slug';
+// import { slugify,slugifyUrl } from "transliteration";
+import { slugify } from 'transliteration';
 
 const newsSchema=mongoose.Schema(
     {
@@ -9,6 +13,8 @@ const newsSchema=mongoose.Schema(
         title: String,
         subtitle:String,
         category:String,
+        image1:String,
+        image2:String,
         images:[String],
         imagetitle1:String,
         imagetitle2:String,
@@ -43,8 +49,9 @@ const newsSchema=mongoose.Schema(
 )
 newsSchema.pre('validate',function(next){
     if(this.title){
-        this.slug=slugify(this.title,{lower:true,
-        strict:true})
+        const kannadaTitle = this.title;
+ this.slug = slugify(kannadaTitle, { lowercase: true });
+// console.log(slug,"sofd");
     }
     next()
 })

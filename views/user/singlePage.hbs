@@ -54,7 +54,9 @@
                     <!-- News Detail Start -->
                     
                     <div class="position-relative mb-3">
-                        <img class="img-fluid w-100 h-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.images.[0]}}" style="object-fit: cover;">
+                         <a href="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image1}}" data-fancybox="gallery">
+                        <img class="img-fluid w-100 h-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image1}}" style="object-fit: cover;">
+                        </a>
                     <div class="bg-white border border-top-0 p-4">
                             <div class="mb-3">
                                 <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
@@ -69,21 +71,28 @@
                             <div class="class">
                                 
                             </div>
-                            <img class="img-fluid w-50 float-left mr-4 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.images.[0]}}" >
-                           
+                             <a href="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image1}}" data-fancybox="gallery">
+                            <img class="img-fluid w-50 float-left mr-4 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image1}}" alt="image" >
+                            </a>
+                        
+                           <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">{{news.subtitle}}</h1>
                            
                             <p class="">{{news.secondparagraph}}</p>
                             {{!-- <h5 class="text-uppercase font-weight-bold mb-3">Lorem ipsum dolor sit amet elit</h5> --}}
-                             <img class="img-fluid w-100 h-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.images.[1]}}" style="object-fit: cover;">
                        <h4>{{news.imagetitle2}}</h4>
+                        <a href="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image2}}" data-fancybox="gallery">
+                             <img class="img-fluid w-100 h-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image2}}" style="object-fit: cover;" alt="image">
+                        </a>
+                            <p>{{news.thirdparagraph}}</p>
+                             <h4 class="mt-5">ಇತರ ಚಿತ್ರಗಳು </h4>
                             {{#each img}}
-                          <img class="img-fluid w-100 h-100 mb-2 " src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this}}" style="object-fit: cover;">
-                     
+             <a href="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this}}" data-fancybox="gallery">
+    <img class="img-fluid w-100 h-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this}}" style="object-fit: cover;">
+  </a>
                     {{/each}}
                          
       
 
-                            <p>{{news.thirdparagraph}}</p>
                         
                         </div>
                         <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
@@ -332,6 +341,65 @@
                         </div>
                     </div>
                     <!-- Newsletter End -->
+                      <div class="mb-3">
+          <div class="section-title mb-0">
+            <h4 class="m-0 text-uppercase font-weight-bold">ಅಪಘಾತ ಸುದ್ದಿ </h4>
+          </div>
+            <div class="bg-white border border-top-0 p-3">
+            {{#each allnews}}
+              {{#isEqual this.category "ಅಪಘಾತ ಸುದ್ದಿ"}}
+              <a href="/detailnews/{{this.slug}}">
+
+                <div
+                  class="d-flex align-items-center bg-white mb-3"
+                  style="height: 110px;"
+                >
+                  <img
+                    class="img-fluid"
+                    src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}"
+                    style="height: 90px; width:130px;"
+                    alt="dkn"
+                  />
+                  <div
+                    class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0"
+                  >
+                    <div class="mb-2">
+                     
+                    
+                    </div>
+                    <a
+                      class="h6 m-0 text-secondary text-uppercase font-weight-bold"
+                      href="/detailnews/{{this.slug}}"
+                    >{{this.title}}
+                      <span
+                        style="font-size: smaller;color:#39569E;padding-left:5px"
+                      >click to read more...</span></a>
+                  </div>
+                </div>
+              </a>
+             {{/isEqual}}
+            {{/each}}
+
+            {{!             }}
+
+            <div class="d-flex justify-content-between mt-3">
+              {{#if (gt trendingPage 1)}}
+
+                <a
+                  href="?trendingPage={{previousPage}}"
+                  class="btn btn-primary"
+                >Previous</a>
+              {{/if}}
+
+              {{#if (lt trendingPage trendingTotalPages)}}
+                <a
+                  href="?trendingPage={{nextPage}}"
+                  class="btn btn-primary"
+                >Next</a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
                      </div>
 
                      <script>

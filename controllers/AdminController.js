@@ -108,6 +108,7 @@ export const getadminLogin=async(req,res,next)=>{
 //create new post
 
 export const addNews= async(req,res,next)=>{
+  console.log("som")
  
   console.log(req.body,"req")
     const { _id,title,subtitle, category, date, body ,imagetitle1,imagetitle2,secondparagraph,thirdparagraph} = req.body;
@@ -118,8 +119,9 @@ export const addNews= async(req,res,next)=>{
   const formattedDate = dateObject.toLocaleDateString();
   // console.log(formattedDate,"date")
 
-   
+  
     const imageFiles = req.files;
+    console.log(imageFiles,'idm')
 
     // Create a new NewsModel instance with the extracted data
     const newNews = new NewsModel({
@@ -128,7 +130,9 @@ export const addNews= async(req,res,next)=>{
       category,
       date:formattedDate,
       body,
-      images: imageFiles.map((file) => file.filename),
+      image1: imageFiles['image1'][0].filename, // Get the filename for image1
+      image2: imageFiles['image2'][0].filename, // Get the filename for image2
+      images: imageFiles['images'].map(file => file.filename), 
       imagetitle1,
       imagetitle2,
       secondparagraph,
@@ -141,7 +145,9 @@ export const addNews= async(req,res,next)=>{
         // res.status(200).json(newNews)
     } catch (error) {
         // res.status(500).json(error)
+        console.log(error,'erer')
  next(error)
+
     }
 }
 

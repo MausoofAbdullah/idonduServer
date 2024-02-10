@@ -26,7 +26,7 @@
       <div class="owl-carousel main-carousel position-relative">
         {{#each news}}
 
-          {{#isEqual this.category "breakingnews"}}
+          {{!-- {{#isEqual this.category "breakingnews"}} --}}
             <div
               class="position-relative overflow-hidden"
               style="height: 500px;"
@@ -50,7 +50,7 @@
                 >{{this.title}}</a>
               </div>
             </div>
-          {{/isEqual}}
+          {{!-- {{/isEqual}} --}}
         {{/each}}
 
       </div>
@@ -66,7 +66,7 @@
                 style="height: 250px;"
               >
                 <img
-                  class="img-fluid w-100 "
+                  class="img-fluid w-100 h-100"
                   src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}"
                   style="object-fit: cover;height:auto"
                 />
@@ -75,7 +75,7 @@
                     <a
                       class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
                       href="/detailnews/{{this.slug}}"
-                    >{{this.category}}</a>
+                    >category</a>
                     <a class="text-white" href=""><small
                       >{{this.date}}</small></a>
                   </div>
@@ -496,16 +496,60 @@
         <!-- Tags Start -->
         <div class="mb-3">
           <div class="section-title mb-0">
-            <h4 class="m-0 text-uppercase font-weight-bold">Tags</h4>
+            <h4 class="m-0 text-uppercase font-weight-bold">Breaking News</h4>
           </div>
-          <div class="bg-white border border-top-0 p-3">
-            <div class="d-flex flex-wrap m-n1">
-              {{#each category}}
+            <div class="bg-white border border-top-0 p-3">
+            {{#each allnews}}
+              {{#isEqual this.category "breakingnews"}}
+              <a href="/detailnews/{{this.slug}}">
+
+                <div
+                  class="d-flex align-items-center bg-white mb-3"
+                  style="height: 110px;"
+                >
+                  <img
+                    class="img-fluid"
+                    src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{this.images.[0]}}"
+                    style="height: 90px; width:130px;"
+                    alt="dkn"
+                  />
+                  <div
+                    class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0"
+                  >
+                    <div class="mb-2">
+                     
+                    
+                    </div>
+                    <a
+                      class="h6 m-0 text-secondary text-uppercase font-weight-bold"
+                      href="/detailnews/{{this.slug}}"
+                    >{{this.title}}
+                      <span
+                        style="font-size: smaller;color:#39569E;padding-left:5px"
+                      >click to read more...</span></a>
+                  </div>
+                </div>
+              </a>
+             {{/isEqual}}
+            {{/each}}
+
+            {{!             }}
+
+            <div class="d-flex justify-content-between mt-3">
+              {{#if (gt trendingPage 1)}}
+
                 <a
-                  href=""
-                  class="btn btn-sm btn-outline-secondary m-1"
-                >{{this.category}}</a>
-              {{/each}}
+                  href="?trendingPage={{previousPage}}"
+                  class="btn btn-primary"
+                >Previous</a>
+              {{/if}}
+
+              {{#if (lt trendingPage trendingTotalPages)}}
+                <a
+                  href="?trendingPage={{nextPage}}"
+                  class="btn btn-primary"
+                >Next</a>
+              {{/if}}
             </div>
           </div>
         </div>
@@ -535,4 +579,8 @@
             opacity: 0;
         }
     }
+   
+
+   
+
 </style>

@@ -36,7 +36,10 @@
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.4",
     "react-router-dom": "^6.21.1",
+    "slug": "^8.2.3",
     "slugify": "^1.6.6",
-    "timeago.js": "^4.0.2"
+    "speakingurl": "^14.0.1",
+    "timeago.js": "^4.0.2",
+    "transliteration": "^2.3.5"
   }
 }

@@ -37,7 +37,9 @@ const authMiddleware=async (req,res,next)=>{
         jwt.verify(token, process.env.JWT_KEY, (err, user) => {
           if (err) {
             // Invalid token, redirect to login page or handle unauthorized access
-            return res.redirect('/admin?message=Unauthorized');
+            // return res.redirect('/admin?message=Unauthorized');
+          return res.render('admin/admin-login',{admin:true});
+
           }
       
           req.user = user;

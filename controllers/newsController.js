@@ -121,7 +121,7 @@ export const getDetailnews=async(req,res,next)=>{
         
         // console.log(id,"id")
         const news = await NewsModel.findOne({slug:slug});
-        console.log(news,"solugnew")
+       
 
         // const fullNews=await NewsModel.find().sort({ createdAt: -1 }).limit(4).exec()
 
@@ -148,7 +148,7 @@ export const getDetailnews=async(req,res,next)=>{
         const nextNews = await NewsModel.findOne({ createdAt: { $gt: news.createdAt } }).sort({ createdAt: 1 }).exec() || await NewsModel.findOne().sort({ createdAt: 1 }).exec();
       
       
-      const img=news.images.slice(2)
+      const img=news.images
       console.log(img,"imd")
 
 

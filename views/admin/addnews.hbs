@@ -16,7 +16,7 @@
   <textarea class="form-control" name="body" id="exampleFormControlTextarea1" rows="3"></textarea>
 </div>
 <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Title</label>
+  <label for="exampleFormControlInput1" class="form-label">Subtitle</label>
   <input type="text" class="form-control" name="subtitle" id="exampleFormControlInput1" placeholder="subtitle of the news">
 </div>
 <div class="mb-3">
@@ -30,18 +30,29 @@
 
 <div id="imagePreview" class="mb-3" style="height: 50px;width:80px;display: flex; flex-wrap: nowrap;"></div>
 <div class="mb-3">
+  <label class="form-label" for="customFile">Main image</label>
+<input type="file" class="form-control col-4" name="image1" id="customFile"  />
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Main image title </label>
+  <input type="text" class="form-control" name="imagetitle1" id="exampleFormControlInput1" placeholder="title of the Main Image">
+</div>
+<div class="mb-3">
   
-  <label for="formFileMultiple" class="form-label">select images</label>
-  <input class="form-control col-4" name="images" type="file" id="formFileMultiple" multiple>
+  <label for="formFileMultiple" class="form-label">Second image</label>
+  <input class="form-control col-4" name="image2" type="file" id="formFileMultiple" >
+ 
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Title of second Image</label>
+  <input type="text" class="form-control" name="imagetitle2" id="exampleFormControlInput1" placeholder="title of the second Image">
 </div>
 <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Image title 1</label>
-  <input type="text" class="form-control" name="imagetitle1" id="exampleFormControlInput1" placeholder="title of the Image">
+    <label for="formFileMultiple" class="form-label">select multiple images</label>
+  <input class="form-control col-4" name="images" type="file" id="formFileMultiple" multiple >
 </div>
-<div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Image title 2</label>
-  <input type="text" class="form-control" name="imagetitle2" id="exampleFormControlInput1" placeholder="title of the Image">
-</div>
+
 <div class="mb-3">
   <label for="datepicker" class="form-label">Select Date</label>
   <input class="form-control col-4" name="date" type="date" id="datepicker">
