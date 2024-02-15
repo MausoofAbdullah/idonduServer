@@ -121,7 +121,13 @@ export const getDetailnews=async(req,res,next)=>{
         
         // console.log(id,"id")
         const news = await NewsModel.findOne({slug:slug});
-       
+        news.shortD=truncateBody(news.body);
+        function truncateBody(str) {
+            // const words = str.split(/\s+/);
+            const truncatedWords = str.slice(0, 80);
+            
+            return truncatedWords;
+          }
 
         // const fullNews=await NewsModel.find().sort({ createdAt: -1 }).limit(4).exec()
 
