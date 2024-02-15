@@ -95,7 +95,7 @@ dotenv.config();
 
 
 //   app.use('/auth',AuthRoute)
-  app.use('/admin',adminRoute)
+  app.use('/',adminRoute)
   app.use('/',newsRoute)
   app.use((req, res, next) => {
     const error = new Error("Not found the page");

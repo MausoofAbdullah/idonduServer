@@ -215,6 +215,7 @@ export const getCategorynews=async(req,res,next)=>{
         const perPage = 6;
         const page = req.query.page || 1;
           const cnews=await NewsModel.find({ category }).sort({ createdAt: -1 }).skip((page - 1) * perPage) .limit(perPage).exec()
+          console.log(cnews,"ddfd")
           
           
         const news=await NewsModel.find().sort({ createdAt: -1 }).skip((page - 1) * perPage) .limit(perPage).exec()

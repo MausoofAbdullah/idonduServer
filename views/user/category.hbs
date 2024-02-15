@@ -39,8 +39,7 @@
                     >{{this.title}}</a>
 
                     <p class="m-0">{{this.shortp}}</p>
-
-                    <div class="icons-wrapper mt-3">
+         <div class="icons-wrapper mt-3">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -62,6 +61,8 @@
                         fill="#25D366"
                         class="bi bi-whatsapp"
                         viewBox="0 0 16 16"
+                        cursor="pointer"
+
                         onclick="shareOnWhatsApp('{{this.shortp}}', '{{this.images.[0]}}', '{{this.slug}}')"
                       >
                         <path
@@ -71,16 +72,20 @@
 
                       <p
                         class="m-0"
-                        style="display: inline-block; margin-left: 10px;"
+                        style="display: inline-block; margin-left: 10px;cursor:pointer;"
+                        onclick="shareOnWhatsApp('{{this.shortp}}', '{{this.images.[0]}}', '{{this.slug}}')"
+
                       >WhatsApp</p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
+                        cursor="pointer"
                         width="24"
                         height="24"
                         fill="#1877f2"
                         class="bi bi-facebook"
                         viewBox="0 0 16 16"
-                        onclick="shareOnFacebook('{{this.shortp}}', '{{this.images.[0]}}', '{{this.slug}}')"
+                        onclick="shareOnFacebook('{{this.shortp}}', '{{this.images?.[0]}}', '{{this.slug}}')"
+                    
                       >
                         <path
                           d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"
@@ -88,7 +93,8 @@
                       </svg>
                       <p
                         class="m-0"
-                        style="display: inline-block; margin-left: 10px;"
+                        style="display: inline-block; margin-left: 10px;cursor:pointer;"
+                         onclick="shareOnFacebook('{{this.shortp}}', '{{this.images?.[0]}}', '{{this.slug}}')"
                       >facebook</p>
 
                     </div>
@@ -370,17 +376,28 @@
         <!-- Tags End -->
       </div>
 
-      <script>
-  function shareOnFacebook(title, image, newsId) { // Implement logic to open
-  Facebook share dialog with shareLink const baseUrl = window.location.origin;
-  const encodedTitle = encodeURIComponent(title); const encodedUrl =
-  encodeURIComponent(`${baseUrl}/detailnews/${newsId}`); 
-  const facebookLink=`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
-  window.open(facebookLink, '_blank'); }; 
-  function shareOnWhatsApp(title, image,newsId) { 
-    const baseUrl = window.location.origin; 
-    const encodedTitle =encodeURIComponent(title);
-     const encodedUrl = encodeURIComponent(`${baseUrl}/detailnews/${newsId}`); 
-     const whatsappLink = `https://wa.me/?text=${encodedUrl}`; // Open WhatsApp link in a new window or
-  tab window.open(whatsappLink, '_blank'); }
+     
+<script>
+ function shareOnFacebook(title, image, newsId)  {
+    
+    // Implement logic to open Facebook share dialog with shareLink
+     const baseUrl = window.location.origin; 
+     console.log(baseUrl)
+
+    const encodedTitle = encodeURIComponent(title);
+    const encodedUrl = encodeURIComponent(`${baseUrl}/detailnews/${newsId}`);
+    const facebookLink=`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
+    window.open(facebookLink, '_blank');
+  };
+
+  function shareOnWhatsApp(title, image, newsId) {
+      const baseUrl = window.location.origin; 
+    const encodedTitle = encodeURIComponent(title);
+    const encodedUrl = encodeURIComponent(`${baseUrl}/detailnews/${newsId}`);
+    const whatsappLink = `https://wa.me/?text=${encodedUrl}`;
+
+    // Open WhatsApp link in a new window or tab
+    window.open(whatsappLink, '_blank');
+
+  }
 </script>
