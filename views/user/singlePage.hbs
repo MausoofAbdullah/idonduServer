@@ -451,17 +451,22 @@
     // Implement logic to open Facebook share dialog with shareLink
      const baseUrl = window.location.origin; 
     const encodedTitle = encodeURIComponent(title);
+          const message = `${title}\n${baseUrl}/detailnews/${newsId}`;
+                const encodedMessage = encodeURIComponent(message);
     const encodedUrl = encodeURIComponent(`${baseUrl}/detailnews/${newsId}`);
-    const facebookLink=`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
+    const facebookLink=`https://www.facebook.com/sharer/sharer.php?u=${encodedMessage}`
     window.open(facebookLink, '_blank');
   };
   
 
   function shareOnWhatsApp(title, image, newsId) {
       const baseUrl = window.location.origin; 
-    const encodedTitle = encodeURIComponent(title);
+            const message = `${title}\n${baseUrl}/detailnews/${newsId}`;
+                const encodedMessage = encodeURIComponent(message);
+    /*const encodedTitle = encodeURIComponent(title);
     const encodedUrl = encodeURIComponent(`${baseUrl}/detailnews/${newsId}`);
-    const whatsappLink = `https://wa.me/?text=${encodedUrl}`;
+    const whatsappLink = `https://wa.me/?text=${encodedUrl}`; */
+     const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
 
     // Open WhatsApp link in a new window or tab
     window.open(whatsappLink, '_blank');
