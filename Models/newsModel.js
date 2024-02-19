@@ -47,13 +47,21 @@ const newsSchema=mongoose.Schema(
         timestamps:true
     }
 )
-newsSchema.pre('validate',function(next){
+newsSchema.pre('validate',async function(next){
     if(this.title){
-        const kannadaTitle = this.title;
- this.slug = slugify(kannadaTitle, { lowercase: true });
+        const kannadaTitle = this.title.slice(0,20);
+        const uniqueId =await generateUniqueId()
+        console.log(uniqueId,"ud")
+ this.slug = kannadaTitle+"-no-"+uniqueId
+//  this.slug = slugify(kannadaTitle, { lowercase: true });
 // console.log(slug,"sofd");
     }
     next()
 })
 const NewsModel=mongoose.model("posts",newsSchema)
 export default NewsModel
+
+async function generateUniqueId() {
+    const count = await NewsModel.countDocuments();
+    return 100 + count;
+}

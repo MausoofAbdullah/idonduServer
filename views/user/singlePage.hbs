@@ -69,22 +69,23 @@
                             <p>{{news.body}}.</p>
                         
                             {{!-- <h3 class="text-uppercase font-weight-bold mb-3">Lorem ipsum dolor sit amet elit</h3> --}}
-                            <h4>{{news.imagetitle1}}</h4>
+                            {{!-- <h4>{{news.imagetitle1}}</h4> --}}
+                           <h4 class="mb-3 text-secondary text-uppercase font-weight-bold">{{news.subtitle}}</h4>
+
                             <div class="class">
                                 
                             </div>
-                             <a href="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image1}}" data-fancybox="gallery">
-                            <img class="img-fluid w-50 float-left mr-4 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image1}}" alt="image" >
+                             <a href="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image2}}" data-fancybox="gallery">
+                            <img class="img-fluid w-50 float-left mr-4 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image2}}" alt="image" >
                             </a>
                         
-                           <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">{{news.subtitle}}</h1>
                            
                             <p class="">{{news.secondparagraph}}</p>
                             {{!-- <h5 class="text-uppercase font-weight-bold mb-3">Lorem ipsum dolor sit amet elit</h5> --}}
-                        <a href="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image2}}" data-fancybox="gallery">
-                             <img class="img-fluid w-100 h-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image2}}" style="object-fit: cover;" alt="image">
+                        <a href="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image1}}" data-fancybox="gallery">
+                             <img class="img-fluid w-100 h-100 mb-2" src="https://res.cloudinary.com/dkeb469sv/image/upload/v1703658754/{{news.image1}}" style="object-fit: cover;" alt="image">
                         </a>
-                       <h4>{{news.imagetitle2}}</h4>
+                       <h4>{{news.imagetitle1}}</h4>
                             <p>{{news.thirdparagraph}}</p>
                              <h4 class="mt-5">ಇತರ ಚಿತ್ರಗಳು </h4>
                             {{#each img}}

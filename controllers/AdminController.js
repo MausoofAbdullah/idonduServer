@@ -130,9 +130,9 @@ export const addNews= async(req,res,next)=>{
       category,
       date:formattedDate,
       body,
-      image1: imageFiles['image1'][0].filename, // Get the filename for image1
-      image2: imageFiles['image2'][0].filename, // Get the filename for image2
-      images: imageFiles['images'].map(file => file.filename), 
+      image1: imageFiles['image1']?.[0].filename, // Get the filename for image1
+      image2: imageFiles['image2']?.[0].filename, // Get the filename for image2
+      images: imageFiles['images']?.map(file => file.filename), 
       imagetitle1,
       imagetitle2,
       secondparagraph,
@@ -140,7 +140,8 @@ export const addNews= async(req,res,next)=>{
     });
 
     try {
-        await newNews.save()
+        const sluf=await newNews.save()
+        console.log(sluf,'slug')
         res.redirect('/admin-news')
         // res.status(200).json(newNews)
     } catch (error) {
