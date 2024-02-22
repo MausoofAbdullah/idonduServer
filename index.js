@@ -95,6 +95,9 @@ dotenv.config();
 
 
 //   app.use('/auth',AuthRoute)
+app.get('/robots.txt', function(req, res) {
+  res.sendFile(path.join(__dirname, 'robots.txt'));
+});
   app.use('/',adminRoute)
   app.use('/',newsRoute)
   app.use((req, res, next) => {

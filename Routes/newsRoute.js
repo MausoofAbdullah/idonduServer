@@ -3,6 +3,7 @@ import {getNews,getDetailnews,getCategorynews} from "../controllers/newsControll
 
 const router=express.Router()
 
+
 router.get('/',getNews)
 router.get('/detailnews/:slug',getDetailnews)
 
