@@ -108,15 +108,15 @@ dotenv.config();
     });
 
 
-const PORT=3000
+// const PORT=3000
 mongoose
   .connect(process.env.MONGO_DB, {
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`listening to port ${PORT}`);
+    app.listen(process.env.PORT, () => {
+      console.log(`listening to port ${process.env.PORT}`);
     });
   })
   .catch((error) => {

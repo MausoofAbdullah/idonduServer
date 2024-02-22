@@ -16,6 +16,7 @@ const serverPublic="https://res.cloudinary.com/dkeb469sv/image/upload/v170365875
 
 export const getNews=async(req,res,next)=>{
     
+  console.log("some")
     const currentPath = req.path;
     const cDate = moment();
     const currentDate = cDate.format('MMMM DD dddd YYYY')
