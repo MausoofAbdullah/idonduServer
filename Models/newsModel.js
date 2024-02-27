@@ -3,9 +3,9 @@ const {ObjectId}=mongoose.Schema;
 import {marked} from 'marked'
 // import slugify from "slugify";
 import speakingurl from 'speakingurl';
-// import slugify from 'slug';
+import slugify from 'slug';
 // import { slugify,slugifyUrl } from "transliteration";
-import { slugify } from 'transliteration';
+// import { slugify } from 'transliteration';
 
 const newsSchema=mongoose.Schema(
     {
@@ -50,9 +50,11 @@ const newsSchema=mongoose.Schema(
 newsSchema.pre('validate',async function(next){
     if(this.title){
         const kannadaTitle = this.title.slice(0,20);
+     const   kannadaTitles = slugify(kannadaTitle, {seperator:" - ",   lowercase: true });
+   
         const uniqueId =await generateUniqueId()
-        console.log(uniqueId,"ud")
- this.slug = kannadaTitle+"-no-"+uniqueId
+        // console.log(uniqueId,"ud")
+ this.slug = kannadaTitles+"-no-"+uniqueId
 //  this.slug = slugify(kannadaTitle, { lowercase: true });
 // console.log(slug,"sofd");
     }
